@@ -18,6 +18,7 @@ package com.qaprosoft.carina.demo.gui.pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HeaderMenu;
 import com.qaprosoft.carina.demo.gui.components.WeValuePrivacyAd;
 import com.zebrunner.carina.utils.Configuration;
 import com.zebrunner.carina.utils.R;
@@ -32,6 +33,13 @@ import java.util.List;
 
 public class HomePage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+
+    @FindBy(xpath = "//div[@class=\"brandmenu-v2 light l-box clearfix\"]/ul/li/a[@href=\"samsung-phones-9.php\"]")
+    private ExtendedWebElement samsungButton;
+
+    @FindBy(id = "header")
+    private HeaderMenu headerMenu;
 
     @FindBy(id = "footmenu")
     private FooterMenu footerMenu;
@@ -55,6 +63,10 @@ public class HomePage extends AbstractPage {
         return footerMenu;
     }
 
+    public HeaderMenu getHeaderMenu() {
+        return headerMenu;
+    }
+
     public BrandModelsPage selectBrand(String brand) {
         LOGGER.info("selecting '" + brand + "' brand...");
         for (ExtendedWebElement brandLink : brandLinks) {
@@ -74,5 +86,10 @@ public class HomePage extends AbstractPage {
 
     public ExtendedWebElement getPhoneFinderButton() {
         return phoneFinderButton;
+    }
+
+    public SamsungPage openSamsungPage(){
+        samsungButton.click();
+        return new SamsungPage(driver);
     }
 }
